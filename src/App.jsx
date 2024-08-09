@@ -8,22 +8,28 @@ function App() {
   const allNewDice = () => {
     let diceArray = [];
     for (let i = 0; i < 10; i++) {
-      let randomNumber = Math.floor(Math.random() * 6) + 1;
-      diceArray.push(randomNumber);
+      let randomNumber = Math.ceil(Math.random() * 6);
+      // let randomNumber = Math.floor(Math.random() * 6) + 1;
+      diceArray.push({
+        value: randomNumber,
+        isHeld: false,
+      });
     }
+    // console.log(diceArray);
     return diceArray;
   };
 
   //function to display dice elements
   const generateDiceElements = () => {
     let diceElements = allNewDice().map((item, index) => {
-      return <Die value={item} key={index} />;
+      return <Die value={item.value} key={index} />;
     });
     setDice(diceElements);
     return diceElements;
   };
 
   useEffect(() => {
+    console.log("rolled");
     generateDiceElements();
   }, []);
 
@@ -42,7 +48,7 @@ function App() {
           <div className="grid grid-cols-5 grid-rows-2 gap-4">{dice}</div>
 
           <button
-            className="border rounded bg-blue-600 text-white font-bold w-24 h-9"
+            className="border rounded bg-blue-600 text-white font-bold w-24 h-9 cursor-pointer"
             onClick={generateDiceElements}
           >
             Roll
