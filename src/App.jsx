@@ -4,8 +4,9 @@ import "./App.css";
 import Die from "./components/Die";
 
 function App() {
+  const [tenzies, setTenzies] = useState(false);
   //function to generate new Dice from 1 to 6 inclusive
-  const generateNewDice = () => {
+  const generateNewDie = () => {
     return {
       value: Math.ceil(Math.random() * 6),
       isHeld: false,
@@ -17,7 +18,7 @@ function App() {
   const allNewDice = () => {
     let diceArray = [];
     for (let i = 0; i < 10; i++) {
-      diceArray.push(generateNewDice());
+      diceArray.push(generateNewDie());
     }
     return diceArray;
   };
@@ -27,14 +28,13 @@ function App() {
     // setDice(allNewDice());
     setDice((oldDice) => {
       return oldDice.map((die) => {
-        return die.isHeld ? die : generateNewDice();
+        return die.isHeld ? die : generateNewDie();
       });
     });
   };
 
   //function to hold dice when clicked
   const holdDice = (id) => {
-    console.log(id);
     //setDice, map through array, check if id received is the same as id,
     //if same, toggle is held else keep same
     setDice((oldDice) => {
@@ -61,6 +61,17 @@ function App() {
     );
   });
 
+  useEffect(() => {
+    console.log("changed");
+    const allHeld = dice.every((die) => die.isHeld === true);
+    let firstValue = dice[0].value;
+    const allSameValue = dice.every((die) => die.value === firstValue);
+    if (allHeld && allSameValue) {
+      console.log("Yaay!!");
+      setTenzies(true);
+    }
+  }, [dice]);
+
   return (
     <>
       <main className="border rounded bg-slate-800 m-auto px-6 py-9 max-w-3xl">
@@ -81,7 +92,7 @@ function App() {
             className="border rounded bg-blue-600 text-white font-bold w-24 h-9 cursor-pointer"
             onClick={rollDice}
           >
-            Roll
+            {tenzies ? "New Game" : "Roll"}
           </button>
         </div>
       </main>
