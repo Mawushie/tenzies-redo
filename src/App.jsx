@@ -68,7 +68,7 @@ function App() {
   });
 
   useEffect(() => {
-    console.log("changed");
+    // console.log("changed");
     const allHeld = dice.every((die) => die.isHeld === true);
     let firstValue = dice[0].value;
     const allSameValue = dice.every((die) => die.value === firstValue);
@@ -96,7 +96,7 @@ function App() {
           </div>
 
           <button
-            className="border rounded bg-blue-600 text-white font-bold w-36 h-16 cursor-pointer"
+            className="border rounded-md bg-blue-600 text-white font-bold w-36 h-16 cursor-pointer"
             onClick={rollDice}
           >
             {tenzies ? "New Game" : "Roll"}
