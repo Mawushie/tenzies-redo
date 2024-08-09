@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
+import Confetti from "react-confetti";
 import "./App.css";
 import Die from "./components/Die";
 
@@ -25,14 +26,17 @@ function App() {
   const [dice, setDice] = useState(allNewDice());
 
   const rollDice = () => {
-    tenzies
-      ? allNewDice()
-      : // setDice(allNewDice());
-        setDice((oldDice) => {
-          return oldDice.map((die) => {
-            return die.isHeld ? die : generateNewDie();
-          });
+    if (tenzies) {
+      allNewDice();
+      setTenzies(false);
+      setDice(allNewDice());
+    } else {
+      setDice((oldDice) => {
+        return oldDice.map((die) => {
+          return die.isHeld ? die : generateNewDie();
         });
+      });
+    }
   };
 
   //function to hold dice when clicked
@@ -76,6 +80,7 @@ function App() {
 
   return (
     <>
+      {tenzies && <Confetti />}
       <main className="border rounded bg-slate-800 m-auto px-6 py-9 max-w-3xl">
         <div className="border rounded-md flex flex-col gap-7 justify-center items-center w-full h-96 bg-zinc-100">
           <div className="w-3/4 sm:w-72">
@@ -91,7 +96,7 @@ function App() {
           </div>
 
           <button
-            className="border rounded bg-blue-600 text-white font-bold w-24 h-9 cursor-pointer"
+            className="border rounded bg-blue-600 text-white font-bold w-36 h-16 cursor-pointer"
             onClick={rollDice}
           >
             {tenzies ? "New Game" : "Roll"}
