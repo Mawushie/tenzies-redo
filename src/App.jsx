@@ -5,7 +5,7 @@ import Die from "./components/Die";
 
 function App() {
   const [tenzies, setTenzies] = useState(false);
-  //function to generate new Dice from 1 to 6 inclusive
+  //function to generate new Die from 1 to 6 inclusive
   const generateNewDie = () => {
     return {
       value: Math.ceil(Math.random() * 6),
@@ -25,12 +25,14 @@ function App() {
   const [dice, setDice] = useState(allNewDice());
 
   const rollDice = () => {
-    // setDice(allNewDice());
-    setDice((oldDice) => {
-      return oldDice.map((die) => {
-        return die.isHeld ? die : generateNewDie();
-      });
-    });
+    tenzies
+      ? allNewDice()
+      : // setDice(allNewDice());
+        setDice((oldDice) => {
+          return oldDice.map((die) => {
+            return die.isHeld ? die : generateNewDie();
+          });
+        });
   };
 
   //function to hold dice when clicked
