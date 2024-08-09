@@ -1,8 +1,13 @@
 import React from "react";
 
-export default function Die({ value }) {
+export default function Die({ value, isHeld }) {
+  //conditionally rendering class of held dice based on isHeld property coming from props
   return (
-    <div className="flex justify-center items-center w-9 h-9 border rounded bg-white text-blue-950 font-bold shadow-md">
+    <div
+      className={`flex justify-center items-center w-9 h-9 border rounded bg-white text-blue-950 font-bold shadow-md ${
+        isHeld ? "heldDice" : ""
+      }`}
+    >
       {value}
     </div>
   );

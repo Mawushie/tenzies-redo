@@ -4,3 +4,10 @@
 * {
     box-sizing: border-box;
 }
+
+
+/*class for held dice*/
+
+.heldDice {
+    background-color: #59e391;
+}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
 import "./App.css";
 import Die from "./components/Die";
 
@@ -13,16 +14,23 @@ function App() {
       diceArray.push({
         value: randomNumber,
         isHeld: false,
+        id: uuid(),
       });
     }
     // console.log(diceArray);
     return diceArray;
   };
 
+  //function to hold dice when clicked
+  const holdDice = () => {
+    //onClick of dice, change bg color to green, set isHeld to true
+    setDice((prevDice) => {});
+  };
+
   //function to display dice elements
   const generateDiceElements = () => {
     let diceElements = allNewDice().map((item, index) => {
-      return <Die value={item.value} key={index} />;
+      return <Die value={item.value} isHeld={item.isHeld} key={index} />;
     });
     setDice(diceElements);
     return diceElements;
