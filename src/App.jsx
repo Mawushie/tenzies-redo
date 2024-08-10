@@ -73,7 +73,7 @@ function App() {
     let firstValue = dice[0].value;
     const allSameValue = dice.every((die) => die.value === firstValue);
     if (allHeld && allSameValue) {
-      console.log("Yaay!!");
+      // console.log("Yaay!!");
       setTenzies(true);
     }
   }, [dice]);
@@ -94,7 +94,7 @@ function App() {
             {diceElements}
           </div>
           <button
-            className="border rounded-md bg-blue-600 text-white font-bold w-36 h-16 cursor-pointer"
+            className="border rounded-md bg-blue-600 text-white font-bold w-32 h-12 cursor-pointer"
             onClick={rollDice}
           >
             {tenzies ? "New Game" : "Roll"}
