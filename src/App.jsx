@@ -5,7 +5,11 @@ import "./App.css";
 import Die from "./components/Die";
 
 function App() {
+  //states
   const [tenzies, setTenzies] = useState(false);
+  const [rollCount, setRollCount] = useState(0);
+  const [timer, setTimer] = useState(0);
+  const [totalTime, setTotalTime] = useState("");
   //function to generate new Die from 1 to 6 inclusive
   const generateNewDie = () => {
     return {
@@ -26,9 +30,13 @@ function App() {
   const [dice, setDice] = useState(allNewDice());
 
   const rollDice = () => {
+    setRollCount((prevCount) => prevCount + 1);
+
     if (tenzies) {
       allNewDice();
       setTenzies(false);
+      setRollCount(0);
+      setTimer(0);
       setDice(allNewDice());
     } else {
       setDice((oldDice) => {
@@ -67,6 +75,7 @@ function App() {
     );
   });
 
+  //effect to check if game has ended
   useEffect(() => {
     // console.log("changed");
     const allHeld = dice.every((die) => die.isHeld === true);
@@ -78,6 +87,27 @@ function App() {
     }
   }, [dice]);
 
+  //effect to track time it takes to win
+  useEffect(() => {
+    console.log("called");
+    let interval = null;
+    if (tenzies === false) {
+      interval = setInterval(() => {
+        setTimer((prev) => prev + 1);
+      }, 1000);
+    } else if (tenzies === true) {
+      if (timer > 60) {
+        let minutes = Math.floor(timer / 60);
+        let seconds = timer % 60;
+        setTotalTime(
+          `${minutes} ${minutes > 1 ? "minutes" : "minute"}  ${seconds} seconds`
+        );
+      }
+      clearInterval(interval);
+    }
+    //cleanup function to take care of memory leaks
+    return () => clearInterval(interval);
+  }, [timer]);
   return (
     <>
       {tenzies && <Confetti />}
@@ -99,6 +129,10 @@ function App() {
           >
             {tenzies ? "New Game" : "Roll"}
           </button>
+          <div>
+            <p>Total Rolls: {rollCount}</p>
+            {tenzies ? <p>Total time: {totalTime}</p> : <p>Time: {timer}s</p>}
+          </div>
         </div>
       </main>
     </>
