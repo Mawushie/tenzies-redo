@@ -90,11 +90,9 @@ function App() {
               its current value between rolls.
             </p>
           </div>
-
           <div className="grid grid-cols-5 grid-rows-2 gap-4">
             {diceElements}
           </div>
-
           <button
             className="border rounded-md bg-blue-600 text-white font-bold w-36 h-16 cursor-pointer"
             onClick={rollDice}
