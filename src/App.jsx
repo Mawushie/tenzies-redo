@@ -88,28 +88,28 @@ function App() {
   }, [dice]);
 
   //effect to track time it takes to win
-  useEffect(() => {
-    // console.log(localStorage.getItem("bestGameTime"));
-    // console.log("called");
-    let interval = null;
-    if (tenzies === false) {
-      interval = setInterval(() => {
-        setTimer((prev) => prev + 1);
-      }, 1000);
-    } else if (tenzies === true) {
-      setTotalTime(`${timer}`);
-      let timeInLocalStorage = localStorage.getItem("bestGameTime");
-      if (timeInLocalStorage < timer) {
-        localStorage.setItem("bestGameTime", timer);
-      }
-      console.log(timeInLocalStorage);
-      localStorage.setItem("bestGameTime", totalTime);
+  // useEffect(() => {
+  //   // console.log(localStorage.getItem("bestGameTime"));
+  //   // console.log("called");
+  //   let interval = null;
+  //   if (tenzies === false) {
+  //     interval = setInterval(() => {
+  //       setTimer((prev) => prev + 1);
+  //     }, 1000);
+  //   } else if (tenzies === true) {
+  //     setTotalTime(`${timer}`);
+  //     let timeInLocalStorage = localStorage.getItem("bestGameTime");
+  //     if (timeInLocalStorage < timer) {
+  //       localStorage.setItem("bestGameTime", timer);
+  //     }
+  //     console.log(timeInLocalStorage);
+  //     localStorage.setItem("bestGameTime", totalTime);
 
-      clearInterval(interval);
-    }
-    //cleanup function to take care of memory leaks
-    return () => clearInterval(interval);
-  }, [timer]);
+  //     clearInterval(interval);
+  //   }
+  //   //cleanup function to take care of memory leaks
+  //   return () => clearInterval(interval);
+  // }, [timer]);
   return (
     <>
       {tenzies && <Confetti />}
@@ -133,7 +133,7 @@ function App() {
           </button>
           <div>
             <p>Total Rolls: {rollCount}</p>
-            <p>Total time: {timer}s</p>
+            {/* <p>Total time: {timer}s</p> */}
           </div>
         </div>
       </main>
